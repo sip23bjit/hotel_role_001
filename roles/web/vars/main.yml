@@ -1,0 +1,4 @@
+---
+httpd_port: 80
+mysql_port: 3306
+repository: https://github.com/sip23bjit/CURD-001.git

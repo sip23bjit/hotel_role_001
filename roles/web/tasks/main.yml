@@ -1,0 +1,34 @@
+- name: Installation Services
+  yum:
+    name:
+    - libselinux-python
+    - libsemanage-python
+    - httpd
+    - git
+    - php
+    - php-mysql
+    state: installed
+  tags: install
+
+- name: Start firewalld
+  service: name=firewalld state=started enabled=yes
+  tags: start firewalld
+
+- name: Insert firewalld rule for httpd
+  firewalld: port={{ httpd_port }}/tcp permanent=true state=enabled immediate=yes
+  tags: enable httpd port
+
+- name: insert firewalld rule for mysql
+  firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes
+  tags: enable mysql port
+
+- name: http service state
+  service: name=httpd state=started enabled=yes
+  tags: httpd start
+
+- name: Copy the code from repository
+  git: repo={{ repository }} dest=/var/www/html/ force=yes
+  tags: clone
+
+
+

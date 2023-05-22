@@ -1,0 +1,9 @@
+---
+- name: DB Service
+  hosts: db 
+  roles:
+    - db
+- name: Web Service
+  hosts: web
+  roles:
+    - web
